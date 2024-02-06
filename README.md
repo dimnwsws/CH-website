@@ -1,1 +1,1 @@
-# This website was created for the sale of jewelry. If you want to take over this site, then download the entire repository, taking into account the images that are outside the folders. This web page is still being developed.
+## This website was created for the sale of jewelry. If you want to take over this site, then download the entire repository, taking into account the images that are outside the folders. This web page is still being developed.
