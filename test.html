@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фото-слайдер</title>
+  <style>
+    .slider {
+      width: 80%;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slides {
+      display: flex;
+    }
+
+    .slide {
+      width: 25%; /* Изменено на 25% для отображения 4 слайдов на странице */
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    #prev {
+      left: 0;
+    }
+
+    #next {
+      right: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slider">
+    <div class="slides">
+      <div class="slide"><img src="photo1.jpg" alt="Slide 1"></div>
+      <div class="slide"><img src="photo2.png" alt="Slide 2"></div>
+      <div class="slide"><img src="111.png" alt="Slide 3"></div>
+      <div class="slide"><img src="photo4.jpg" alt="Slide 4"></div>
+      <div class="slide"><img src="photo5.png" alt="Slide 5"></div>
+      <div class="slide"><img src="photo6.jpg" alt="Slide 6"></div>
+      <div class="slide"><img src="photo7.jpg" alt="Slide 7"></div>
+      <div class="slide"><img src="photo8.png" alt="Slide 8"></div>
+    </div>
+    <button id="prev">&#10094;</button>
+    <button id="next">&#10095;</button>
+  </div>
+
+  <script>
+    let slideIndex = 0;
+    showSlide(slideIndex);
+
+    function showSlide(n) {
+        const slides = document.getElementsByClassName("slide");
+        const slidesPerPage = 1;
+        const totalPages = Math.ceil(slides.length / slidesPerPage);
+
+        if (n >= totalPages) {
+            slideIndex = 0;
+        } else if (n < 0) {
+            slideIndex = totalPages - 1;
+        } else {
+            slideIndex = n;
+        }
+
+        for (let i = 0; i < slides.length; i++) {
+            if (i >= slideIndex * slidesPerPage && i < (slideIndex + 1) * slidesPerPage) {
+                slides[i].style.display = "block";
+            } else {
+                slides[i].style.display = "none";
+            }
+        }
+    }
+
+    document.getElementById("prev").addEventListener("click", () => {
+        showSlide(slideIndex - 1);
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+        showSlide(slideIndex + 1);
+    });
+
+    // Добавление обработчиков событий для свайпа
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    const slider = document.querySelector('.slider');
+
+    slider.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+    }, false);
+
+    slider.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        handleGesture();
+    }, false);
+
+    function handleGesture() {
+        if (touchendX < touchstartX) {
+            showSlide(slideIndex + 1);
+        }
+
+        if (touchendX > touchstartX) {
+            showSlide(slideIndex - 1);
+        }
+    }
+  </script>
+</body>
+
+</html>
